@@ -1,0 +1,22 @@
+<%- include('../partials/header') %>
+<a href="movies/imdb"	> Add Top 250 Movies to List</a>
+  <table id="list">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Release<br>Year</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    <% listOf250Movies.forEach(function(m) { %>
+      <tr>
+        <td><%= m.title %></td>
+        <td><%= m.rank %></td>
+        <td><a href="/movies/<%= m._id %>">DETAILS</a></td>
+      </tr>
+      <% }); %>
+    </tbody>
+  </table>
+
+<%- include('../partials/footer') %>
