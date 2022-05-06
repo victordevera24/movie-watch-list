@@ -1,0 +1,9 @@
+<%- include('../partials/header') %>
+<form action="/tasks/<%=task._id%>?_method=PUT" method="POST">
+    <input type="text" name="task" placeholder="<%=task.task%>"><br>
+    <input type="submit" value="Add">
+</form>
+
+
+
+<%- include('../partials/footer') %>
