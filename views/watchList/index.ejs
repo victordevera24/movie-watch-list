@@ -9,10 +9,10 @@
       </tr>
     </thead>
     <tbody>
-      <% movies.forEach(function(m) { %>
+      <% movieList.forEach(function(m) { %>
         <tr>
           <td><%= m.title %></td>
-          <td><%= m.releaseYear %></td>
+          <td><%= m.year %></td>
           <td><a href="/movies/<%= m._id %>">DETAILS</a></td>
         </tr>
       <% }); %>

@@ -12,12 +12,8 @@ var methodOverride = require('method-override');
 
 var indexRouter = require('./routes/index');
 var moviesRouter = require('./routes/movies');
-var reviewsRouter = require('./routes/reviews');
-var performersRouter = require('./routes/performers');
 var movieListRouter = require('./routes/movieList')
-var messagesRouter = require('./routes/messages')
-var friendListRouter = require('./routes/friendList')
-var profileRouter = require('./routes/profile')
+var toDoListRouter = require('./routes/toDoList')
 
 
 var app = express();
@@ -51,12 +47,8 @@ app.use(function (req, res, next) {
 
 app.use('/', indexRouter);
 app.use('/movies', moviesRouter);
-app.use('/', reviewsRouter);
-app.use('/', performersRouter);
 app.use('/', movieListRouter);
-app.use('/', messagesRouter);
-app.use('/', friendListRouter);
-app.use('/', profileRouter);
+app.use('/', toDoListRouter)
 
 
 

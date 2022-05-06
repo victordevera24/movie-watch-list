@@ -1,5 +1,6 @@
 const Movie = require('../models/movie');
-const Performer = require('../models/performer');
+const MovieList = require('../models/movieList')
+const User = require('../models/user')
 
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 const rootURL = 'https://imdb-api.com/en/API/'
@@ -11,26 +12,36 @@ module.exports = {
   show,
   new: newMovie,
   create,
-  getMoviesImdb
+  getMoviesImdb,
+  addToList
 };
+
+function addToList(req, res) {
+  User.findOne({ googleId: req.user.googleId}, function(err, user) {
+    console.log(user)
+    user.list.push(req.params.id);
+    user.save();
+    console.log("list here adsfas", user.list)
+    console.log('here is object', req.body)
+    const movie = new Movie(req.body)
+    movie.save()
+    res.redirect('/movies')
+  })
+}
 
 function index(req, res) {
   listOf250Movies = []
   res.render('movies/index', { title: 'All Movies', listOf250Movies });
 }
 
-function show(req, res) {
-  Movie.findById(req.params.id)
-    .populate('cast')
-    .exec(function(err, movie) {
-      // Native MongoDB syntax
-      Performer
-        .find({_id: {$nin: movie.cast}})
-        .sort('name').exec(function(err, performers) {
-          res.render('movies/show', { title: 'Movie Detail', movie, performers });
-        });
-    });
+function show(req, res, next) {
+  fetch(`${rootURL}Title/${token}/${req.params.id}`)
+    .then(res => res.json())
+    .then(movie => {
+      res.render('movies/show', {title: 'Movie Details', movie})
+    })
 }
+
 
 function newMovie(req, res) {
   res.render('movies/new', { title: 'Add Movie' });
@@ -51,6 +62,7 @@ function create(req, res) {
 }
 
 function getMoviesImdb(req, res, next) {
+  console.log('in get movies imdb')
   fetch(`${rootURL}Top250Movies/${token}`)
     .then(res=> res.json())
     .then(movies => {

@@ -3,17 +3,33 @@
   <table id="list">
     <thead>
       <tr>
+        <th></th>
         <th>Title</th>
-        <th>Release<br>Year</th>
+        <th>IMDB<br>Rank</th>
+        <th></th>
         <th></th>
       </tr>
     </thead>
     <tbody>
     <% listOf250Movies.forEach(function(m) { %>
       <tr>
+        <td><img src="<%= m.image %>" alt="movie image" id="moviePosterInIndex"></td>
         <td><%= m.title %></td>
         <td><%= m.rank %></td>
-        <td><a href="/movies/<%= m._id %>">DETAILS</a></td>
+        <td><a href="/movies/<%= m.id %>">DETAILS</a></td>
+        <% if (user) {%>
+        <td>
+          <form action="/movies/<%= m.id %>/list" method="POST">
+            <input type='submit' value="ADD MOVIE TO LIST">
+            <input type="hidden" name='title' value="<%= m.title %>">
+            <input type="hidden" name='id' value="<%= m.id %>">
+            <input type="hidden" name='releaseYear' value="<%= m.year %>">
+            <input type="hidden" name='rating' value="<%= m.imDbRating %>">
+            <input type="hidden" name='image' value="<%= m.image %>">
+            <input type="hidden" name='rank' value="<%= m.rank %>">
+          </form>
+        </td>
+        <%}%>
       </tr>
       <% }); %>
     </tbody>

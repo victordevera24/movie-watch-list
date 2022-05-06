@@ -186,3 +186,11 @@ hr {
 .login img {
   height: 30px;
 }
+
+#showPoster{
+  height: 400px;
+}
+
+#moviePosterInIndex {
+  height: 200px;
+}
