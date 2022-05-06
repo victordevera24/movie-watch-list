@@ -20,7 +20,7 @@
         <% if (user) {%>
         <td>
           <form action="/movies/<%= m.id %>/list" method="POST">
-            <input type='submit' value="ADD MOVIE TO LIST">
+            <input type='submit' value="ADD MOVIE TO LIST" id="addToList">
             <input type="hidden" name='title' value="<%= m.title %>">
             <input type="hidden" name='id' value="<%= m.id %>">
             <input type="hidden" name='releaseYear' value="<%= m.year %>">
